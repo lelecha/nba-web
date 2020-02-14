@@ -1,10 +1,9 @@
 import React from 'react';
-import nba from 'nba';
 import * as d3 from 'd3';
 import { hexbin } from 'd3-hexbin';
 import { court, shots } from 'd3-shotchart';
 import PropTypes from 'prop-types';
-
+import nba from '../nba-client';
 window.d3_hexbin = {hexbin : hexbin}; // workaround library problem
 
 export class ShotChart extends React.Component {
@@ -16,11 +15,11 @@ export class ShotChart extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.playerId)
+
         nba.stats.shots({
             PlayerID: this.props.playerId
         }).then((response) => {
-            console.log(response)
+
             const final_shots = response.shot_Chart_Detail.map(shot => ({
                 x: (shot.locX + 250) / 10,
                 y: (shot.locY + 50) / 10,
